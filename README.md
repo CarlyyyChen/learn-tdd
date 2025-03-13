@@ -7,7 +7,7 @@ Install dependencies
 
 `$ npm install`
 
-Run tests
+Run tests (`NODE_ENV=test` means in test environment)
 
 `$ NODE_ENV=test npx jest /path/to/test/file`
 
@@ -41,18 +41,12 @@ for a server in typescript. The examples are as follows:
 
 Write a unit test for the GET /authors service. 
 The service should respond with a list of author names and lifetimes sorted by family name of the authors. It should respond
-with a "No authors found" message when there are no authors in the database. If an error occurs when retrieving the authors then the
-service responds with an error code of 500. The unit test
+with a "No authors found" message when there are no authors in the database. If an error occurs when retrieving the authors then the service responds with an error code of 500. The unit test
 should be placed in `tests/authorService.test.ts`.
 
 ## Part 2
 
 Briefly explain a limitation of the tests in `tests/authorSchema.test.ts` in the space below.
-
-
-
-## Part 3
-
-Generate the coverage report for the tests you wrote. How can you improve
-your tests using the coverage report? Briefly explain your 
-process in the space below.
+- It is tightly coupled with the specific implementation of the method. For example, testing getAuthorCount() is tightly
+coupled with Author.countDocuments method. If we update the implementation of the getAuthorCount() method to not use countDocuments then the test is no longer valid.
+- It is testing using a mock method, instead of the actual implementation. But this is reasonable as we want to avoid long-running tests.
